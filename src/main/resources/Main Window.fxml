@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="520.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <MenuBar fx:id="menuBar">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#loadModel" text="Load Model" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#quit" text="Quit" />
+               </items>
+            </Menu>
+            <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit" />
+            <Menu mnemonicParsing="false" text="Database">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#askForConnectionToDatabase" text="Connect to Database" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveChangesToDatabase" text="Save To Database" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeDatabase" text="Close Database" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <BorderPane maxHeight="1.7976931348623157E308" prefHeight="494.0" prefWidth="780.0">
+         <left>
+            <TreeView fx:id="nodeTree" prefWidth="250.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <FlowPane fx:id="graphView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</VBox>

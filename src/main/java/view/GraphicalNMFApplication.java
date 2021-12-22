@@ -20,26 +20,19 @@ import java.util.Optional;
 
 public class GraphicalNMFApplication extends Application
 {
+    public static final String RESSOURCE_PATH = "./src/main/resources/";      //fixme
+
     private DatabaseView databaseView;
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
-        //Initialization
-        String generationDir = "../models/gen/MindMaps";
-        String compileDir = "../models/build/MindMaps";
-        String metamodel = "../models/metamodel/MindMaps.ecore";
-
         //Create the Opening Window
         try
         {
+            //TODO Move to a launcher class
             OpeningWindow openingWindow = new OpeningWindow(this);
             openingWindow.show();
-
-            //GenerationController controller = new GenerationController(metamodel, generationDir, compileDir);
-            //IAdapterFactory factory = controller.generateAndCompile();
-
-            //this.open(factory);
         }
         catch(Exception e)
         {

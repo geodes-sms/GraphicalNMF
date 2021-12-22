@@ -38,7 +38,7 @@ public class NodeSelector extends Stage
     private void init() throws FXMLException
     {
         //Create the window using fxml
-        File file = new File("..\\Prototypes\\Class Selector Window.fxml");       //fixme
+        File file = new File(GraphicalNMFApplication.RESSOURCE_PATH+"Class Selector Window.fxml");       //fixme
 
         try
         {

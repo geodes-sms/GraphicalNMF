@@ -53,7 +53,7 @@ public abstract class EditableListWindow<T> extends Stage
     private void init() throws FXMLException
     {
         //Create the window using fxml
-        File file = new File("..\\Prototypes\\Editable List Window.fxml");       //fixme
+        File file = new File("./src/main/ressources/Editable List Window.fxml");       //fixme
 
         try
         {

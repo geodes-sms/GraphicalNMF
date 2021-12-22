@@ -39,7 +39,7 @@ public class NodeView extends Stage implements View
 
     private void init() throws FXMLException
     {
-        File file = new File("..\\Prototypes\\Node View.fxml");     //fixme
+        File file = new File(GraphicalNMFApplication.RESSOURCE_PATH+"Node View.fxml");     //fixme
 
         try
         {

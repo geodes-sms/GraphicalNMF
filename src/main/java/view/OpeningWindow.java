@@ -34,7 +34,7 @@ public class OpeningWindow extends Stage implements View
     {
         try
         {
-            File file = new File("..\\Prototypes\\Opening Window.fxml");  //fixme
+            File file = new File(GraphicalNMFApplication.RESSOURCE_PATH+"Opening Window.fxml");  //fixme
             root = GraphicalNMFApplication.loadFXML(file, this);
         }
         catch(Exception e)

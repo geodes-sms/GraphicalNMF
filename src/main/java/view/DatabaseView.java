@@ -43,7 +43,7 @@ public class DatabaseView extends Stage implements View
      */
     protected void init() throws FXMLException
     {
-        File file = new File("..\\Prototypes\\Main Window.fxml");    //fixme        //Change to ressource
+        File file = new File(GraphicalNMFApplication.RESSOURCE_PATH+"Main Window.fxml");    //fixme change to ressource
 
         try
         {
@@ -128,7 +128,7 @@ public class DatabaseView extends Stage implements View
 
         //Create the dialog -> fixme needs better implementation
         ConnectionDialog dialog = null;
-        File file = new File("..\\Prototypes\\ConnectDialog.fxml");      //fixme
+        File file = new File(GraphicalNMFApplication.RESSOURCE_PATH+"ConnectDialog.fxml");      //fixme
         try
         {
             URL xml = file.toURI().toURL();
