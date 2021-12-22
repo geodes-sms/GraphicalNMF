@@ -10,22 +10,13 @@ Aucun jar n'est disponible pour l'instant.
 ### Prérequis
 1. Une base de donnée Neo4j avec le plugin APOC. Voir https://neo4j.com/download pour l'installation
 et https://github.com/neo4j-contrib/neo4j-apoc-procedures pour la configuration du plugin APOC.
-2. Une copie du projet de Neo Modeling Framework (voir le github)
 3. Java 11 installé
 
 ### Configuration du projet
 Le projet peut être téléchargé directement de github. J'utilise IntelliJ comme IDE, mais
 n'importe quel IDE qui supporte l'utilisation de Gradle devrait faire l'affaire.
 
-Pour pouvoir compiler le projet, il faut ajouter les dépendances au Neo Modeling Framework dans
-le fichier build.gradle.
-Les lignes à changer sont :
-```
-implementation files('../NeoModelingFramework-master/modelLoader/build/libs/modelLoader.jar')
-implementation files('../NeoModelingFramework-master/neo4j-io/build/libs/neo4j-io.jar')
-implementation files('../NeoModelingFramework-master/codeGenerator/build/libs/codeGenerator.jar')
-```
-Si les deux projets sont dans le même dossier, il n'y a rien à modifier.
+L'application peut être lancer à partir de la class `Main` ou `view.GraphicalNMFApplication`.
 
 ## Utilisation de l'application
 Avant d'utiliser l'application, assurez-vous d'avoir une base de donnée Neo4j ouverte.
