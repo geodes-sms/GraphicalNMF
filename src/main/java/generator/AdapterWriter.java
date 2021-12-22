@@ -16,7 +16,7 @@ import java.util.List;
 
 public abstract class AdapterWriter implements ISTWriter
 {
-    public static final String RESSOURCE_PATH = "C:/Users/etien/Documents/NeoModelingFramework/GraphicalNeoModelingFramework/src/main/resources/";
+    public static final String RESSOURCE_PATH = "./src/main/resources/";      //fixme
 
     protected static final String ATTR_IMPORTS = "imports";
     protected static final String ATTR_PACKAGE = "package";
