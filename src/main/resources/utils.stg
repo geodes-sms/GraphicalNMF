@@ -1,0 +1,16 @@
+//***** UTILITY *****//
+set_attribute_call(caller, attr, var) ::= "<caller>.set<attr.name:camelcase()>((<attr.type>) <var>)"
+unset_attribute_call(caller, attr, var) ::= "<caller>.unset<attr.name:camelcase()>((<attr.type>) <var>)"
+get_attribute_call(caller, attr, cast=false, args=false) ::= "<if(cast)>(<cast>) <endif><caller>.get<attr.name:camelcase()>(<if(args)><args><endif>)"
+add_child_call(caller, attr, cast=false, args=false) ::= "<if(cast)>(<cast>) <endif><caller>.add<attr.name:camelcase()>(<if(args)><args><endif>)"
+
+set_enum_call(caller, attr, var) ::= "<caller>.set<attr.name:camelcase()>(<attr.type>.valueOf((String) <var>))"
+
+switch_case(name,body) ::= <<
+case "<name>":
+    <body>
+    break;<\n>
+>>
+
+lowercase(str) ::= "<str; format=\"lc\">"
+camelcase(str) ::= "<str; format=\"cc\">"
