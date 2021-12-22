@@ -2,8 +2,7 @@
 Graphical NMF est une application qui permet l'utilisation de Neo Modeling Framework (NMF) 
 avec une interface graphique.
 
-Pour en apprendre plus sur Neo Modeling Framework : 
-[github.com/geodes-sms/NeoModelingFramework](github.com/geodes-sms/NeoModelingFramework)
+Pour en apprendre plus sur Neo Modeling Framework : https://github.com/geodes-sms/NeoModelingFramework
 
 ## Installation
 Aucun jar n'est disponible pour l'instant.
@@ -15,7 +14,7 @@ et https://github.com/neo4j-contrib/neo4j-apoc-procedures pour la configuration 
 3. Java 11 installé
 
 ### Configuration du projet
-Le projet peut être télécharger directement de github. J'utilise IntelliJ comme IDE, mais
+Le projet peut être téléchargé directement de github. J'utilise IntelliJ comme IDE, mais
 n'importe quel IDE qui supporte l'utilisation de Gradle devrait faire l'affaire.
 
 Pour pouvoir compiler le projet, il faut ajouter les dépendances au Neo Modeling Framework dans
