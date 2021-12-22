@@ -138,4 +138,8 @@ public class GraphicalNMFApplication extends Application
     }
 
     //endregion
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }
