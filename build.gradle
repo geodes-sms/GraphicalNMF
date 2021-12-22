@@ -18,9 +18,11 @@ dependencies {
     //implementation 'org.neo4j.driver:neo4j-java-driver:4.2.0'
     //implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
 
+    //*** Points to the installation of Neo Modeling Framework ***//
     implementation files('../NeoModelingFramework-master/modelLoader/build/libs/modelLoader.jar')
     implementation files('../NeoModelingFramework-master/neo4j-io/build/libs/neo4j-io.jar')
     implementation files('../NeoModelingFramework-master/codeGenerator/build/libs/codeGenerator.jar')
+    //*** ***//
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
