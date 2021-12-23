@@ -10,7 +10,8 @@ Aucun jar n'est disponible pour l'instant.
 ### Prérequis
 1. Une base de donnée Neo4j avec le plugin APOC. Voir https://neo4j.com/download pour l'installation
 et https://github.com/neo4j-contrib/neo4j-apoc-procedures pour la configuration du plugin APOC.
-3. Java 11 installé
+2. Java 11
+3. Compilateur Kotlin (version 1.5) : https://kotlinlang.org/docs/command-line.html
 
 ### Configuration du projet
 Le projet peut être téléchargé directement de github. J'utilise IntelliJ comme IDE, mais
