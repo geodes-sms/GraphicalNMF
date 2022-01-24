@@ -28,7 +28,7 @@ public class <adapter_factory_class(name)> extends AbstractAdapterFactory
     }
 
     @Override
-    protected AbstractNodeAdapter createAdatperDelegate(INodeEntity node) throws NoSuchClassException
+    protected AbstractNodeAdapter createAdapterDelegate(INodeEntity node) throws NoSuchClassException
     {
         <if(classes)>
         AbstractNodeAdapter adapter;

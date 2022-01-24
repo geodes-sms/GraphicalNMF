@@ -166,6 +166,11 @@ public abstract class AbstractModelAdapter implements IModelAdapter
             //Check if an adapter was already in the cache
             if(cache.isInCache(node.get_id()))
             {
+                /*
+                * adapter.node -> doesn't work
+                * node -> overrides modification
+                */
+
                 adapter = cache.loadFromCache(node);
                 //fixme should we check for CacheException -> label issue
             }

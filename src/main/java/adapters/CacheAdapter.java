@@ -9,7 +9,7 @@ class CacheAdapter
 {
     private static class CacheEntry
     {
-        private String label;
+        private String label;           //fixme not really necessary
         private AbstractNodeAdapter adapter;
         private int refCount;
 

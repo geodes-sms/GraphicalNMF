@@ -24,7 +24,7 @@ public abstract class AbstractAdapterFactory implements IAdapterFactory
     @Override
     public final AbstractNodeAdapter createAdapter(INodeEntity node) throws AdapterException
     {
-        AbstractNodeAdapter adapter = createAdatperDelegate(node);
+        AbstractNodeAdapter adapter = createAdapterDelegate(node);
         adapter.factory = this;
 
         return adapter;
@@ -37,5 +37,5 @@ public abstract class AbstractAdapterFactory implements IAdapterFactory
     }
 
     protected abstract AbstractModelAdapter connectDelegate(String uri, String user, String password);
-    protected abstract AbstractNodeAdapter createAdatperDelegate(INodeEntity node) throws AdapterException;
+    protected abstract AbstractNodeAdapter createAdapterDelegate(INodeEntity node) throws AdapterException;
 }
