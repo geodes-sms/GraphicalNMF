@@ -17,7 +17,3 @@ dependencies {
 
     testImplementation files('../libs/modelEditor.jar')
 }
-
-test {
-    useJUnitPlatform()
-}
