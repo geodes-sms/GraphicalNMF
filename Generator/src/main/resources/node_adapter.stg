@@ -1,0 +1,234 @@
+import "utils.stg"
+
+node_adapter(label, attributes, children, list_children, references, list_references, id, imports, package) ::= <<
+<if(package)>package <package>;<\n><\n><endif><\\>
+<\\>
+<if(imports)>
+<imports:{imp | import <imp>;}; separator="\n">
+<endif>
+import geodes.sms.neo4j.io.entity.INodeEntity;
+import geodes.sms.gnmf.generator.adapters.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class <node_adapter_class(label)> extends AbstractNodeAdapter
+{
+    private <label> entity;
+
+    public <node_adapter_class(label)>(<label> entity)
+    {
+        this.entity = entity;
+    }
+
+    <set_attribute(label, "entity", attributes)>
+
+    <get_attribute(label, "entity", attributes)>
+
+    <add_child_delegate(label, "entity", strip([children, list_children]))>
+
+    <set_reference_delegate(label, "entity", strip([references, list_references]))>
+
+    <unset_reference_delegate(label, "entity", strip([children, list_children, references, list_references]))>
+
+    <get_reference_delegate(label, "entity", strip([children, references]))>
+
+    <get_reference_list_delegate(label, "entity", strip([list_children, list_references]))>
+
+    @Override
+    protected INodeEntity getNode()
+    {
+        return entity;
+    }
+
+    @Override
+    protected void setNode(INodeEntity node) throws AdapterException
+    {
+        if(!(node instanceof <label>)) {
+            throw new AdapterException("<node_adapter_class(label)> can't have " + node.getLabel() + " as a node");
+        }
+
+        this.entity = (<label>) node;
+    }
+
+    @Override
+    public String getDisplayName()
+    {
+        <if(id)>
+        return String.valueOf(<get_attribute_call("entity", id)>);
+        <else>
+        return null;
+        <endif>
+    }
+}
+>>
+
+set_attribute(label, object, attributes) ::= <<
+@Override
+public \<T> void setAttribute(String attrName, T attrValue) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    switch(attrName.toLowerCase())
+    {
+        <attributes:{attr | <if(attr.isEnum)><\\>
+                            <switch_case(attr.name:lowercase(),
+                                {<set_enum_call(object, attr, "attrValue")>;}
+                            )>
+                            <else><\\>
+                            <switch_case(attr.name:lowercase(),
+                                {<set_attribute_call(object, attr, "attrValue")>;}
+                            )>
+                            <endif>}>
+        default:
+            throw new NoSuchAttributeException(attrName, "<label>");
+    }
+    <else>
+    throw new NoSuchAttributeException(attrName, "<label>");
+    <endif>
+}
+>>
+
+get_attribute(label, object, attributes) ::= <<
+@Override
+public \<T> T getAttribute(String attrName) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    T attr = null;
+
+    switch(attrName.toLowerCase())
+    {
+        <attributes:{attr | <if(attr.isEnum)><\\>
+                                <switch_case(attr.name:lowercase(),
+                                    {<attr.type> val = <get_attribute_call(object, attr)>;<\n><\\>
+                                    if(val != null) attr = (T) val.toString();}
+                                )>
+                            <else><\\>
+                                <switch_case(attr.name:lowercase(),
+                                    {attr = <get_attribute_call(object, attr, "T")>;}
+                                )>
+                            <endif>}>
+        default:
+            throw new NoSuchAttributeException(attrName, "<label>");
+    }
+
+    return attr;
+    <else>
+    throw new NoSuchAttributeException(attrName, "<label>");
+    <endif>
+}
+>>
+
+add_child_delegate(label, object, attributes) ::= <<
+@Override
+protected INodeEntity addChildDelegate(String refName, String type) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    INodeEntity child;
+
+    switch(refName.toLowerCase())
+    {
+        <attributes:{attr | <if(attr.superType)><\\>
+                                <switch_case(attr.name:lowercase(),
+                                    {child = <add_child_call(object, attr, false, {<attr.superType>.valueOf(type)})>;}
+                                )>
+                            <else><\\>
+                                <switch_case(attr.name:lowercase(),
+                                    {child = <add_child_call(object, attr)>;}
+                                )>
+                            <endif>}>
+        default:
+            throw new NoSuchAttributeException(refName, "<label>");
+    }
+
+    return child;
+    <else>
+    throw new NoSuchAttributeException(refName, "<label>");
+    <endif>
+}
+>>
+
+set_reference_delegate(label, object, attributes) ::= <<
+@Override
+protected void setReferenceDelegate(String refName, INodeEntity ref) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    switch (refName.toLowerCase())
+    {
+        <attributes:{attr | <switch_case(attr.name:lowercase(),
+                                {<set_attribute_call(object, attr, "ref")>;}
+                            )>}; separator="\n">
+        default:
+            throw new NoSuchAttributeException(refName, "<label>");
+    }
+    <else>
+    throw new NoSuchAttributeException(refName, "<label>");
+    <endif>
+}
+>>
+
+unset_reference_delegate(label, object, attributes) ::= <<
+@Override
+protected void unsetReferenceDelegate(String refName, INodeEntity ref) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    switch (refName.toLowerCase())
+    {
+        <attributes:{attr | <switch_case(attr.name:lowercase(),
+                                {<unset_attribute_call(object, attr, "ref")>;}
+                            )>}; separator="\n">
+        default:
+            throw new NoSuchAttributeException(refName, "<label>");
+    }
+    <else>
+    throw new NoSuchAttributeException(refName, "<label>");
+    <endif>
+}
+>>
+
+get_reference_delegate(label, object, attributes) ::= <<
+@Override
+protected INodeEntity getReferenceDelegate(String refName) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    INodeEntity ref;
+
+    switch (refName.toLowerCase())
+    {
+        <attributes:{attr | <switch_case(attr.name:lowercase(),
+                                {ref = <get_attribute_call(object, attr)>;}
+                            )>}; separator="\n">
+        default:
+            throw new NoSuchAttributeException(refName, "<label>");
+    }
+
+    return ref;
+    <else>
+    throw new NoSuchAttributeException(refName, "<label>");
+    <endif>
+}
+>>
+
+get_reference_list_delegate(label, object, attributes) ::= <<
+//FIXME Do something about limits
+@Override
+protected List\<INodeEntity> getReferenceListDelegate(String refName) throws NoSuchAttributeException
+{
+    <if(attributes)>
+    ArrayList\<INodeEntity> refs;
+
+    switch (refName.toLowerCase())
+    {
+        <attributes:{attr | <switch_case(attr.name:lowercase(),
+                                {refs = new ArrayList\<>(<get_attribute_call(caller=object, attr=attr, args="1000")>);}
+                            )>}; separator="\n">
+        default:
+            throw new NoSuchAttributeException(refName, "<label>");
+    }
+
+    return refs;
+    <else>
+    throw new NoSuchAttributeException(refName, "<label>");
+    <endif>
+}
+>>
+
+node_adapter_class(name) ::= "<name>NodeAdapter"

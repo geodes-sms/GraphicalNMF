@@ -17,7 +17,7 @@ et https://github.com/neo4j-contrib/neo4j-apoc-procedures pour la configuration 
 Le projet peut être téléchargé directement de github. J'utilise IntelliJ comme IDE, mais
 n'importe quel IDE qui supporte l'utilisation de Gradle devrait faire l'affaire.
 
-L'application peut être lancer à partir de la class `Main` ou `view.GraphicalNMFApplication`.
+L'application peut être lancer à partir de la class `geodes.sms.gnmf.application.Main`.
 
 ## Utilisation de l'application
 Avant d'utiliser l'application, assurez-vous d'avoir une base de donnée Neo4j ouverte.

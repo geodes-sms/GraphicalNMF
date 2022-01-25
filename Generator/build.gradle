@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations:16.0.2'
+    compile group: 'org.antlr', name: 'ST4', version: '4.3'
+
+    implementation 'org.eclipse.emf:org.eclipse.emf.ecore.xmi:2.16.0'
+    implementation 'org.eclipse.emf:org.eclipse.emf.ecore:2.23.0'
+
+    implementation files('../libs/neo4j-io.jar')
+    implementation files('../libs/codeGenerator.jar')
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    testImplementation files('../libs/modelEditor.jar')
+}
+
+test {
+    useJUnitPlatform()
+}

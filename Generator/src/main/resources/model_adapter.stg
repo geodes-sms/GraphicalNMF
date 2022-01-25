@@ -1,0 +1,168 @@
+import "utils.stg"
+
+model_adapter(name, classes, imports, package) ::= <<
+<if(package)>package <package>;<\n><\n><endif><\\>
+<\\>
+<if(imports)>
+<imports:{imp | import <imp>;}; separator="\n">
+<endif>
+import geodes.sms.neo4j.io.entity.INodeEntity;
+import geodes.sms.gnmf.generator.adapters.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class <model_adapter_class(name)> extends AbstractModelAdapter
+{
+    private final ModelManagerImpl modelManager;
+
+    public <model_adapter_class(name)>(ModelManagerImpl modelManager)
+    {
+        super();
+        this.modelManager = modelManager;
+    }
+
+    <create_node_delegate("modelManager", classes)>
+
+    <remove_node_delegate("modelManager", classes)>
+
+    <load_node_delegate("modelManager", classes)>
+
+    <unload_node_delegate("modelManager", classes)>
+
+    <load_all_nodes_delegate("modelManager", classes)>
+
+    @Override
+    protected void saveToDatabaseDelegate()
+    {
+        modelManager.saveChanges();
+    }
+
+    @Override
+    protected void closeDatabaseDelegate()
+    {
+        modelManager.close();
+    }
+
+    @Override
+    protected void clearCacheDelegate()
+    {
+        modelManager.clearCache();
+    }
+
+    @Override
+    protected void clearDatabaseDelegate()
+    {
+        modelManager.clearDB();
+    }
+}
+>>
+
+create_node_delegate(object, classes) ::= <<
+@Override
+protected INodeEntity createNodeDelegate(String label) throws NoSuchClassException
+{
+    <if(classes)>
+    INodeEntity node;
+
+    switch(label)
+    {
+        <classes:{class | <switch_case(class,
+                            {node = <object>.create<class>();}
+                          )>}; separator="\n">
+        default:
+            throw new NoSuchClassException(label);
+    }
+
+    return node;
+    <else>
+    throw new NoSuchClassException(label);
+    <endif>
+}
+>>
+
+remove_node_delegate(object, classes) ::= <<
+@Override
+protected void removeNodeDelegate(INodeEntity node) throws NoSuchClassException
+{
+    <if(classes)>
+    switch(node.getLabel())
+    {
+        <classes:{class | <switch_case(class,
+                            {<object>.remove((<class>) node);}
+                          )>}; separator="\n">
+        default:
+            throw new NoSuchClassException(node.getLabel());
+    }
+    <else>
+    throw new NoSuchClassException(node.getLabel());
+    <endif>
+}
+>>
+
+load_node_delegate(object, classes) ::= <<
+@Override
+protected INodeEntity loadNodeDelegate(String label, long id) throws NoSuchClassException
+{
+    <if(classes)>
+    INodeEntity node;
+
+    switch(label)
+    {
+        <classes:{class | <switch_case(class,
+                            {node = <object>.load<class>ById(id);}
+                          )>}; separator="\n">
+        default:
+            throw new NoSuchClassException(label);
+    }
+
+    return node;
+    <else>
+    throw new NoSuchClassException(label);
+    <endif>
+}
+>>
+
+unload_node_delegate(object, classes) ::= <<
+@Override
+protected void unloadNodeDelegate(INodeEntity node) throws NoSuchClassException
+{
+    <if(classes)>
+    switch(node.getLabel())
+    {
+        <classes:{class | <switch_case(class,
+                            {<object>.unload((<class>) node);}
+                          )>}; separator="\n">
+        default:
+            throw new NoSuchClassException(node.getLabel());
+    }
+    <else>
+    throw new NoSuchClassException(node.getLabel());
+    <endif>
+}
+>>
+
+load_all_nodes_delegate(object, classes) ::= <<
+//FIXME Do something about limits
+@Override
+protected List\<INodeEntity> loadAllNodesDelegate(String label) throws NoSuchClassException
+{
+    <if(classes)>
+    ArrayList\<INodeEntity> nodes;
+
+    switch(label)
+    {
+        <classes:{class | <switch_case(class,
+                            {nodes = new ArrayList\<>(<object>.load<class>List(1000));}
+                          )>}; separator="\n">
+        default:
+            throw new NoSuchClassException(label);
+    }
+
+    return nodes;
+    <else>
+    throw new NoSuchClassException(label);
+    <endif>
+}
+>>
+
+model_adapter_class(name) ::= "<name>ModelAdapter"
